@@ -1,129 +1,158 @@
 package ar.edu.unju.fi.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Entity
-@Table(name="cuotas")
-public class Cuota implements Serializable{
+public class Cuota{
 	
 	/**
-	 * 
+	 * numero de identifacion de una cuota
 	 */
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="ID", nullable=false)
-	private Long id;
-	
-	@Column(name="FECHA_PAGO", nullable = false)
+	private long id;
+	/**
+	 * fecha del proximo pago
+	 */
 	private LocalDate fechaPago;
-	
-	@Column(name="PERIODO", nullable=false)
+	/**
+	 * periodo correspondiente del pago
+	 */
 	private String periodo;
-	
-	@Column(name="MONTO", nullable=false)
+	/**
+	 * monto de la cuota
+	 */
 	private double monto;
-	
-	@Column(name="ESTADO", nullable=false)
+	/**
+	 * Estado de la cuota
+	 * puede ser pagado o moratorio
+	 */
 	private String estado;
-	
+	/**
+	 * reprenta el usuario del cual se cargan los valores de la cuota
+	 */
 	@Autowired
-	@ManyToOne(fetch =FetchType.LAZY)
-	@JoinColumn(name = "SOCIO_ID")
-	private Usuario socio;
+	private Usuario usuario;
 	
+	//---------------CONSTRUCTORES---------------
+			/**
+			 * constructor por defecto
+			 */
+			@Autowired
 	public Cuota() {
-		
+		// TODO Auto-generated constructor stub
 	}
-
-	
-
-	public Cuota( LocalDate fechaPago, String periodo, double monto, String estado, Usuario socio) {
+			
+	/**
+	 * constructor parametrisado
+	 * @param id
+	 * @param fechaPago
+	 * @param periodo
+	 * @param monto
+	 * @param estado
+	 * @param usuario
+	 */
+	public Cuota(long id, LocalDate fechaPago, String periodo, double monto, String estado, Usuario usuario) {
 		super();
+		this.id = id;
 		this.fechaPago = fechaPago;
 		this.periodo = periodo;
 		this.monto = monto;
 		this.estado = estado;
-		this.socio = socio;
+		this.usuario = usuario;
 	}
 
+	//-------------METODOS ACCESORES-------------
 
-
-	public Long getId() {
+	
+	/**
+	 * @return the id
+	 */
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the fechaPago
+	 */
 	public LocalDate getFechaPago() {
 		return fechaPago;
 	}
 
+	/**
+	 * @param fechaPago the fechaPago to set
+	 */
 	public void setFechaPago(LocalDate fechaPago) {
 		this.fechaPago = fechaPago;
 	}
 
+	/**
+	 * @return the periodo
+	 */
 	public String getPeriodo() {
 		return periodo;
 	}
 
+	/**
+	 * @param periodo the periodo to set
+	 */
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
 	}
 
+	/**
+	 * @return the monto
+	 */
 	public double getMonto() {
 		return monto;
 	}
 
+	/**
+	 * @param monto the monto to set
+	 */
 	public void setMonto(double monto) {
 		this.monto = monto;
 	}
 
-	public Usuario getSocio() {
-		return socio;
-	}
-
-	public void setSocio(Usuario socio) {
-		this.socio = socio;
-	}
-
-
-
+	/**
+	 * @return the estado
+	 */
 	public String getEstado() {
 		return estado;
 	}
 
-
-
+	/**
+	 * @param estado the estado to set
+	 */
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 
+	/**
+	 * @return the usuario
+	 */
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
+	/**
+	 * @param usuario the usuario to set
+	 */
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	@Override
 	public String toString() {
-		return "Cuota [id=" + id + ", fechaPago=" + fechaPago + ", periodo=" + periodo + ", monto=" + monto
-				+ ", estado=" + estado + ", socio=" + socio + "]";
+		return "Usuario= "+usuario.getId()+"informacion de Cuota [id=" + id + ", fechaPago=" + fechaPago + ", periodo=" + periodo + ", monto=" + monto
+				+ ", estado=" + estado + "]";
 	}
 
 	

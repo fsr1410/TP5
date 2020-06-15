@@ -3,25 +3,32 @@ package ar.edu.unju.fi.model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/***
+ * Represanta los datos del Equipo
+ * @author Sabastian
+ *
+ */
 @Component
 public class Equipo{
 	
-	@Autowired
+	/**
+	 * Nombre de un Equipo
+	 */
 	private String nombre;
 	
+	/**
+	 * Nmbre del Estadio
+	 */
 	@Autowired
 	private Estadio estadio;
 	
 	
 	
 	//---------------CONSTRUCTORES---------------
-	/**
-	 * @param estadio
-	 */
-	public Equipo(Estadio estadio) {
-		this.estadio = estadio;
-	}
 	
+	/**
+	 * constrcutor por defecto
+	 */
 	@Autowired
 	public Equipo() {
 		// TODO Auto-generated constructor stub

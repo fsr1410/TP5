@@ -1,253 +1,222 @@
 package ar.edu.unju.fi.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.format.annotation.DateTimeFormat;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@Entity
-public class Usuario implements Serializable{
+public class Usuario{
 	/**
-	 * 
+	 * codigo de identificacion del usuario
 	 */
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO,generator="native")
-	@GenericGenerator(name="native",strategy="native")
-	private Long id;
-	@Column
-	@NotBlank
+	private long id;
+	/**
+	 * nombre del usuario
+	 */
 	private String nombre;
-	@Column
-	@NotBlank(message="El Apellido no puede quedar en blanco")
+	/**
+	 * apellido del usuario
+	 */
 	private String apellido;
-	@Column	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private LocalDate fechaNac;
-	@Column
-	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private LocalDate fechaAlta;
-	@Column
+	/**
+	 * fecha de nacimineto del usuario ,
+	 * puede servir para determinar la edad del usuario
+	 */
+	private LocalDate fechaNacimiento;
+	/**
+	 * direccion del usuario
+	 */
 	private String direccion;
-	@Column
+	/**
+	 * cedula de identificación personal. 
+	 */
 	private long dni;
-	@Column
-	@NotBlank
-	private String tipo;
-	@Column
-	@NotBlank
-	@Size(min=8, message="Su contraseña debe tener como mínimo 8 caracteres")
-	private String password;	
+	/**
+	 * fecha de suscripcion
+	 */
+	private LocalDate fechaAlta;
+	/**
+	 * tipo de usuaruio,
+	 * puede ser
+	 * - SOCIO.
+	 * - ADMIN.
+	 * - CONSULTOR (visitante no registrado dento de la pagina)
+	 */
+	private String tipo; //yo utilisaria el tipo de datos int definiendo su vez prioridades
+	/**
+	 * representa la contraseña contraseña por usuario
+	 */
+	private String password;
 	
-	@OneToMany(mappedBy ="socio", cascade = CascadeType.ALL)
-	private List<Cuota> cuotas = new ArrayList<Cuota>();
+	//---------------CONSTRUCTORES---------------
+		/**
+		 * constructor por defecto
+		 */
+		@Autowired
+		public Usuario() {
+			// TODO Auto-generated constructor stub
+		}
 	
-	public Usuario() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Usuario(Long id, @NotBlank String nombre,
-			@NotBlank(message = "El Apellido no puede quedar en blanco") String apellido, LocalDate fechaNac,
-			@NotNull LocalDate fechaAlta, String direccion, long dni, @NotBlank String tipo,
-			@NotBlank @Size(min = 8, message = "Su contraseña debe tener como mínimo 8 caracteres") String password,
-			List<Cuota> cuotas) {
+	/**
+	 * constructor parametrizado  o sobrecargado
+	 * @param id
+	 * @param nombre
+	 * @param apellido
+	 * @param fechaNacimiento
+	 * @param direccion
+	 * @param dni
+	 * @param fechaAlta
+	 * @param tipo
+	 * @param password
+	 */
+	public Usuario(long id, String nombre, String apellido, LocalDate fechaNacimiento, String direccion, long dni,
+			LocalDate fechaAlta, String tipo, String password) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.fechaNac = fechaNac;
-		this.fechaAlta = fechaAlta;
+		this.fechaNacimiento = fechaNacimiento;
 		this.direccion = direccion;
 		this.dni = dni;
+		this.fechaAlta = fechaAlta;
 		this.tipo = tipo;
 		this.password = password;
-		this.cuotas = cuotas;
 	}
 
-	public Long getId() {
+	//-------------METODOS ACCESORES-------------
+	
+	/**
+	 * @return the id
+	 */
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return the nombre
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * @param nombre the nombre to set
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * @return the apellido
+	 */
 	public String getApellido() {
 		return apellido;
 	}
 
+	/**
+	 * @param apellido the apellido to set
+	 */
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
 
-	public LocalDate getFechaNac() {
-		return fechaNac;
+	/**
+	 * @return the fechaNacimiento
+	 */
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 
-	public void setFechaNac(LocalDate fechaNac) {
-		this.fechaNac = fechaNac;
+	/**
+	 * @param fechaNacimiento the fechaNacimiento to set
+	 */
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	public LocalDate getFechaAlta() {
-		return fechaAlta;
-	}
-
-	public void setFechaAlta(LocalDate fechaAlta) {
-		this.fechaAlta = fechaAlta;
-	}
-
+	/**
+	 * @return the direccion
+	 */
 	public String getDireccion() {
 		return direccion;
 	}
 
+	/**
+	 * @param direccion the direccion to set
+	 */
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
 
+	/**
+	 * @return the dni
+	 */
 	public long getDni() {
 		return dni;
 	}
 
+	/**
+	 * @param dni the dni to set
+	 */
 	public void setDni(long dni) {
 		this.dni = dni;
 	}
 
+	/**
+	 * @return the fechaAlta
+	 */
+	public LocalDate getFechaAlta() {
+		return fechaAlta;
+	}
+
+	/**
+	 * @param fechaAlta the fechaAlta to set
+	 */
+	public void setFechaAlta(LocalDate fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	/**
+	 * @return the tipo
+	 */
 	public String getTipo() {
 		return tipo;
 	}
 
+	/**
+	 * @param tipo the tipo to set
+	 */
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
+	/**
+	 * @return the password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * @param password the password to set
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public List<Cuota> getCuotas() {
-		return cuotas;
-	}
-
-	public void setCuotas(List<Cuota> cuotas) {
-		this.cuotas = cuotas;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((apellido == null) ? 0 : apellido.hashCode());
-		result = prime * result + ((cuotas == null) ? 0 : cuotas.hashCode());
-		result = prime * result + ((direccion == null) ? 0 : direccion.hashCode());
-		result = prime * result + (int) (dni ^ (dni >>> 32));
-		result = prime * result + ((fechaAlta == null) ? 0 : fechaAlta.hashCode());
-		result = prime * result + ((fechaNac == null) ? 0 : fechaNac.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (apellido == null) {
-			if (other.apellido != null)
-				return false;
-		} else if (!apellido.equals(other.apellido))
-			return false;
-		if (cuotas == null) {
-			if (other.cuotas != null)
-				return false;
-		} else if (!cuotas.equals(other.cuotas))
-			return false;
-		if (direccion == null) {
-			if (other.direccion != null)
-				return false;
-		} else if (!direccion.equals(other.direccion))
-			return false;
-		if (dni != other.dni)
-			return false;
-		if (fechaAlta == null) {
-			if (other.fechaAlta != null)
-				return false;
-		} else if (!fechaAlta.equals(other.fechaAlta))
-			return false;
-		if (fechaNac == null) {
-			if (other.fechaNac != null)
-				return false;
-		} else if (!fechaNac.equals(other.fechaNac))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (tipo == null) {
-			if (other.tipo != null)
-				return false;
-		} else if (!tipo.equals(other.tipo))
-			return false;
-		return true;
-	}
-
+	
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNac
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", fechaNac=" + fechaNacimiento
 				+ ", fechaAlta=" + fechaAlta + ", direccion=" + direccion + ", dni=" + dni + ", tipo=" + tipo
-				+ ", password=" + password + ", cuotas=" + cuotas + "]";
+				+ ", password=" + password+"]";
 	}
 
 		

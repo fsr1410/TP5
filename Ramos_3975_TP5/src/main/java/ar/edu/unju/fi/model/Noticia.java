@@ -3,43 +3,19 @@
  */
 package ar.edu.unju.fi.model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
-
-
-
-
 /**
- * Representa una noticia difundida por la 
+ * Representa una noticia dela 
  * Liga de Futbol
- * @author Ariel
+ * @author Sebastian
  *
  */
 @Component
-@Entity
-@Table(name = "noticias")
-public class Noticia implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name ="ID")
-	private Long id;
+public class Noticia{
 	
 	/**
 	 * Fecha de la noticia
@@ -54,36 +30,33 @@ public class Noticia implements Serializable{
 	/**
 	 * Resumen de la noticia
 	 */
-	@Column(name = "RESUMEN", length = 1000)
 	private String resumen;
-	
-	//----------CONSTRUCTORES--------
-	
-	/**
-	 * Constructor por defecto
-	 */
-	public Noticia() {
-		// TODO Auto-generated constructor stub
-	}
+
+	//---------------CONSTRUCTORES---------------
 	
 	/**
-	 * @param fecha Valor que se asignar� a la fecha de la noticia
-	 * @param titulo Valor que se asignar� al t�tulo de la noticia
-	 * @param resumen Valor que se asignar� al resumen de la noticia
+	 * construcctor parametrisado
+	 * @param fecha
+	 * @param titulo
+	 * @param resumen
 	 */
 	public Noticia(LocalDate fecha, String titulo, String resumen) {
+		super();
 		this.fecha = fecha;
 		this.titulo = titulo;
 		this.resumen = resumen;
 	}
 	
-	
-
-	@Override
-	public String toString() {
-		return "Noticia [fecha=" + fecha + ", titulo=" + titulo + ", resumen=" + resumen + "]";
+	/**
+	 * consttructor por defecto
+	 */
+	@Autowired
+	public Noticia() {
+		// TODO Auto-generated constructor stub
 	}
-
+	
+	//-------------METODOS ACCESORES-------------
+	
 	/**
 	 * @return the fecha
 	 */
@@ -126,20 +99,5 @@ public class Noticia implements Serializable{
 		this.resumen = resumen;
 	}
 
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
-	
-
 }
